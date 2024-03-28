@@ -5,14 +5,15 @@ BinarFud
 Terimakasih sudah memesan
 di BinarFud
 
-Dibawah ini adalah pesanan Anda
+Dibawah ini adalah pesanan anda
 
-Nasi + Ayam	2	36,000
-Nasi Goreng	2	30,000
---------------------------------+
-Total		2	66,000
+Nasi Goreng	2	Rp. 30000.0
+Mie Goreng	2	Rp. 26000.0
+Nasi + Ayam	2	Rp. 36000.0
+---------------------------+
+Total			92000.0
 
-Pembayaran: BinarCash
+Pembayaran: Cash
 
 ==========================
 Simpan struk ini sebagai

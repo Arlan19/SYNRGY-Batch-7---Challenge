@@ -7,8 +7,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="a6d493ff-b21c-45a5-a3c9-5b0cbd3b52a0" />
+    <option name="uniqueId" value="49f2abcd-1eaf-4ebe-97fe-5ca2c984ad27" />
   </component>
 </module>
