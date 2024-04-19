@@ -1,0 +1,45 @@
+-- Users Entity
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    username VARCHAR(255),
+    email_address VARCHAR(255),
+    password VARCHAR(255)
+);
+
+-- Merchant Entity
+CREATE TABLE merchant (
+    id UUID PRIMARY KEY,
+    merchant_name VARCHAR(255),
+    merchant_location VARCHAR(255),
+    open BOOLEAN
+);
+
+-- Product Entity
+CREATE TABLE product (
+    id UUID PRIMARY KEY,
+    product_name VARCHAR(255),
+    price DECIMAL,
+    merchant_id UUID,
+    FOREIGN KEY (merchant_id) REFERENCES merchant(id)
+);
+
+-- Order Entity
+CREATE TABLE orders (
+    id UUID PRIMARY KEY,
+    order_time TIMESTAMP,
+    destination_address VARCHAR(255),
+    user_id UUID,
+    completed BOOLEAN,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Order Detail Entity
+CREATE TABLE order_detail (
+    id UUID PRIMARY KEY,
+    order_id UUID,
+    product_id UUID,
+    quantity INTEGER,
+    total_price DECIMAL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);
