@@ -74,10 +74,19 @@ public class ServiceImplMerchant implements MerchantService {
         return null;
     }
 
-
     @Override
     public Map list() {
         return null;
+    }
+
+    @Override
+    public Map deleteById(UUID id) {
+        Optional<Merchant> merchantOptional = merchantRepository.findById(id);
+        if (!merchantOptional.isPresent()){
+            return response.error("id not found", 404);
+        }
+        merchantRepository.deleteById(id);
+        return response.sukses(merchantOptional.get());
     }
 
     @Override
@@ -87,6 +96,7 @@ public class ServiceImplMerchant implements MerchantService {
         if(!getId.isPresent()){
             return response.error("id not found", 404);
         }
+//        merchantRepository.getById(id);
         return response.sukses(getId.get());
     }
 

@@ -13,11 +13,11 @@ public interface MerchantService {
     Map delete(Merchant request);
     Map list();
 
+    Map deleteById(UUID id);
+
     Map getById(UUID id);
 
     Map getByMerchantName(String merchant_name);
 
     Map pagination(int page, int size);
-
-
 }

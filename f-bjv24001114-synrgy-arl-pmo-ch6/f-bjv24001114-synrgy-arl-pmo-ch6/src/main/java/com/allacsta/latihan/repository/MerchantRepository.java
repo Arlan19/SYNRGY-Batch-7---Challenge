@@ -25,5 +25,4 @@ public interface MerchantRepository extends JpaRepository<Merchant, UUID>, JpaSp
     public Optional<Merchant> getByMerchantName(@Param("namamerchantname") String merchant_name);
 
 
-    void deleteById(UUID id);
 }

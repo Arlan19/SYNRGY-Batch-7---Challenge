@@ -1,8 +1,8 @@
 package com.allacsta.latihan.service.impl;
 
-import com.allacsta.latihan.entity.Merchant;
-import com.allacsta.latihan.repository.MerchantRepository;
-import com.allacsta.latihan.service.MerchantService;
+import com.allacsta.latihan.entity.Users;
+import com.allacsta.latihan.repository.UsersRepository;
+import com.allacsta.latihan.service.UsersService;
 import com.allacsta.latihan.utils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,49 +20,48 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ServiceImplMerchant implements MerchantService {
+public class ServiceImplUsers implements UsersService {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceImplUsers.class);
 
     @Autowired
-    private MerchantRepository merchantRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
     private Response response;
-
     @Override
-    public Map save(Merchant request) {
-        if(response.chekNull(request.getMerchant_name())){
+    public Map save(Users request) {
+        if(response.chekNull(request.getUsername())){
             return  response.error("Name is required.",402);
         }
-        if(StringUtils.isEmpty(request.getMerchant_name())){
+        if(StringUtils.isEmpty(request.getUsername())){
             return  response.error("Name is required.",402);
         }
 
-        return response.sukses(merchantRepository.save(request));
+        return response.sukses(usersRepository.save(request));
     }
 
     @Override
-    public Map edit(Merchant request) {
+    public Map edit(Users request) {
         try {
 
             if(response.chekNull(request.getId())){
                 return  response.error("Id is required.",402);
             }
 
-            Optional<Merchant> getId = merchantRepository.findById(request.getId());
+            Optional<Users> getId = usersRepository.findById(request.getId());
             if(!getId.isPresent()){
                 return response.error("id not found", 404);
             }
 
-            Merchant edit = getId.get();
-            edit.setMerchant_name(request.getMerchant_name());
-            edit.setMerchant_location(request.getMerchant_location());
-            edit.setOpen(request.getOpen());
+            Users edit = getId.get();
+            edit.setUsername(request.getUsername());
+            edit.setPassword(request.getPassword());
+            edit.setEmail_address(request.getEmail_address());
 
 
 
-            return response.sukses(merchantRepository.save(edit));
+            return response.sukses(usersRepository.save(edit));
         }catch (Exception e){
             return response.error("id not found", 404);
 
@@ -70,10 +69,9 @@ public class ServiceImplMerchant implements MerchantService {
     }
 
     @Override
-    public Map delete(Merchant request) {
+    public Map delete(Users request) {
         return null;
     }
-
 
     @Override
     public Map list() {
@@ -81,9 +79,19 @@ public class ServiceImplMerchant implements MerchantService {
     }
 
     @Override
+    public Map deleteById(UUID id) {
+        Optional<Users> usersOptional = usersRepository.findById(id);
+        if (!usersOptional.isPresent()){
+            return  response.error("id not found", 404);
+        }
+        usersRepository.deleteById(id);
+        return response.sukses(usersOptional.get());
+    }
+
+    @Override
     public Map getById(UUID id) {
         Map map = new HashMap();
-        Optional<Merchant> getId = merchantRepository.findById(id);
+        Optional<Users> getId = usersRepository.findById(id);
         if(!getId.isPresent()){
             return response.error("id not found", 404);
         }
@@ -91,19 +99,19 @@ public class ServiceImplMerchant implements MerchantService {
     }
 
     @Override
-    public Map getByMerchantName(String merchant_name) {
+    public Map getByUsername(String username) {
         Map map = new HashMap();
-        Optional<Merchant> getByName = merchantRepository.getByMerchantName(merchant_name);
-        if(!getByName.isPresent()){
+        Optional<Users> getByUsername = usersRepository.getByUsername(username);
+        if(!getByUsername.isPresent()){
             return response.error("id not found", 404);
         }
-        return response.sukses(getByName.get());
+        return response.sukses(getByUsername.get());
     }
 
     @Override
     public Map pagination(int page, int size) {
         Pageable show_data = PageRequest.of(page, size, Sort.by("id").descending());
-        Page<Merchant> list = merchantRepository.getAllDataPage(show_data);
+        Page<Users> list = usersRepository.getAllDataPage(show_data);
         return response.sukses(list);
     }
 }
